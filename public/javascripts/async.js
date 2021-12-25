@@ -12,14 +12,14 @@ async function loadMiddleClient() {
   // console.log(user_id);
   // console.log(user_img);
   // console.log(username);
-  
+
   // add spinner to middle main and fetch msg;
   middleMain.innerHTML = SPINNER;
-  
+
   fetch(`/msg/chat/${user_id}`)
     .then(response => response.json())
     .then((response) => {
-      
+      console.log(response);
       let el = '';
       if (response.length == 0) {
         middleMain.innerHTML = INFO('No Messages available');
@@ -29,13 +29,24 @@ async function loadMiddleClient() {
           if (item.sender_id == current_user_id) {
             el += `<div class="msg-recived">${item.msg}</div>`;
           } else {
-            el += `<div class="msg-sent">${item.msg}</div>`;
+            if (item.msg_type === "FILE") {
+              el += `<div class="msg-sent">${item.msg}</div>`;
+              console.log("filed msg", item)
+              var element = document.createElement('a');
+              element.innerText = "Download"
+              element.setAttribute('href', item.base64data);
+              element.setAttribute('download', item.msg);
+              el += element.outerHTML;
+            }
+            else
+              el += `<div class="msg-sent">${item.msg}</div>`;
           }
         }
         middleMain.innerHTML = `<div>${el}</div>`;
       }
     })
     .catch((err) => {
+      console.log(err);
       middleMain.innerHTML = INFO('Previous data could not be loaded!!!');
     });
 }

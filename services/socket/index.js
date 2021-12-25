@@ -2,6 +2,8 @@
 const passportSocketIo = require('passport.socketio');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const { Server } = require('socket.io-file-stream')
+const {createWriteStream} = require('fs')
 
 // local node modules
 const MSG = require('../../db/model/msg');
@@ -62,7 +64,9 @@ const insertMSG = async (sender_id, reciver_id, msg) => {
     const newMSG = MSG.create({
       sender_id: sender_id,
       receiver_id: reciver_id,
-      msg: msg,
+      msg: msg.name || msg,
+      msg_type: msg.type || 'TEXT',
+      base64data: msg.base64data || undefined
     });
 
     return {
@@ -144,7 +148,9 @@ const socketIO = (io) => {
      */
     socket.on('SENT_MSG', async (to_user_id, msg, MSG_ACK) => {
       try {
+        console.log("received", msg)
         const socket_id = await getSocketID(to_user_id);
+
         const newMSG = await insertMSG(current_user._id, to_user_id, msg);
         // user online
         // console.log('from ', to_user_id);
@@ -159,9 +165,26 @@ const socketIO = (io) => {
       } catch (err) {
         throw new err();
       }
+
+      server.on('file-upload', ({ stream, data: { data } }, done) => {
+        console.log('stream', stream);
+        console.log('data :', data)
+        const writable = createWriteStream(data.name, {
+          autoClose: true
+        })
+        stream.pipe(writable)
+        writable.on('close', () => {
+          console.log("writable :", writable)
+          //make sure to call this function
+          //only when you're done, you can
+          //pass a value to it which will be
+          //sent back to client as well
+          done('good')
+        })
+      })
     });
 
-    
+
     socket.on('disconnect', async () => {
       // updating connection data
       response = await deleteSocketConnection(id);

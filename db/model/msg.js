@@ -9,6 +9,7 @@ const msgSchema = new Schema(
     receiver_id: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
     msg_type: { type: String, enum: MSG_TYPE, default: 'TEXT' },
     msg: { type: String, required: true },
+    base64data: {type: String, defaule: undefined}
   },
   { timestamps: true },
 );

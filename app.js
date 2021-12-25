@@ -9,6 +9,8 @@ const MongoStore = require("connect-mongo")(session);
 const passport   = require("passport");
 const flash      = require("connect-flash");
 const layout     = require('express-ejs-layouts');
+const multer     = require('multer')
+
 require("dotenv").config();
 
 // local node modules
