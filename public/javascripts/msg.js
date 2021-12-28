@@ -2,7 +2,8 @@ var socket;
 
 // client-side
 if (window.location.pathname === '/msg') {
-  socket = io('http://localhost:3000');
+  socket = io('https://harshit-secure-chat-app.herokuapp.com');
+  // socket = io('http://localhost:3000');
 
   /**
    * @listing from server

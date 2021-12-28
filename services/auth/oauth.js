@@ -25,7 +25,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_OAUTH2_CLIENT_ID,
       clientSecret: process.env.GOOGLE_OAUTH2_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      // callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "https://harshit-secure-chat-app.herokuapp.com/auth/google/callback",
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {
