@@ -61,12 +61,16 @@
 #### ScreenShots
 
 > Home Page ROOT ROUTE    
-![](public/images/4.png)
+
+![image](https://user-images.githubusercontent.com/56792415/147547035-90ea9998-9cb3-4531-ad45-56a21443c019.png)
+
 
 > /msg page    
-![](public/images/2.png)
 
-![](public/images/3.png)
+![image](https://user-images.githubusercontent.com/56792415/147546900-995c9c31-ccdf-415c-b856-0453d5c122b6.png)
+
+![image](https://user-images.githubusercontent.com/56792415/147546962-85cd340d-0221-4a54-8b31-55e8346708e3.png)
+
 
 #### Demo
 - https://harshit-secure-chat-app.herokuapp.com/
