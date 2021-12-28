@@ -166,22 +166,7 @@ const socketIO = (io) => {
         throw new err();
       }
 
-      server.on('file-upload', ({ stream, data: { data } }, done) => {
-        console.log('stream', stream);
-        console.log('data :', data)
-        const writable = createWriteStream(data.name, {
-          autoClose: true
-        })
-        stream.pipe(writable)
-        writable.on('close', () => {
-          console.log("writable :", writable)
-          //make sure to call this function
-          //only when you're done, you can
-          //pass a value to it which will be
-          //sent back to client as well
-          done('good')
-        })
-      })
+      
     });
 
 
